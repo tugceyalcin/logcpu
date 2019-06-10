@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <RollingFile name="MAIN" fileName="log/cpu.log" filePattern="log/cpu.%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d{dd-MM-yyyy HH:mm:ss.SSS}]@%msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="20 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>[%d{dd-MM-yyyy HH:mm:ss.SSS}] [%-5level] [%t] [%c{1}(%M:%L)] - %msg%n</Pattern>
+            </PatternLayout>
+
+            <Filters>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="ACCEPT"/>
+            </Filters>
+        </Console>
+
+        <Console name="STDERR" target="SYSTEM_ERR">
+            <PatternLayout>
+                <Pattern>[%d{dd-MM-yyyy HH:mm:ss.SSS}] [%-5level] [%t] [%c{1}(%M:%L)] - %msg%n</Pattern>
+            </PatternLayout>
+            <Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT"/>
+            </Filters>
+        </Console>
+
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="STDERR"/>
+            <AppenderRef ref="MAIN"/>
+        </Root>
+    </Loggers>
+</Configuration>
